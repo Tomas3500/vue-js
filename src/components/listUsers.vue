@@ -6,20 +6,34 @@
           <hr />
           <div class="input-group mb-3">
             <input
+              :disabled="!isEditing"
               type="text"
               class="form-control"
               v-model="carentName"
-              v-bind:placeholder="placeholder"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
             />
-            <button type="button" class="btn btn-outline-primary">edit</button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              v-on:click="editName(carentName)"
+            >
+              edit
+            </button>
             <button
               type="button"
               class="btn btn-outline-danger"
               v-on:click="removeUser(index)"
             >
               delete
+            </button>
+            <button
+              v-if="isEditing"
+              type="button"
+              class="btn btn-dark"
+              v-on:click="saveName()"
+            >
+              save
             </button>
           </div>
         </div>
@@ -31,10 +45,10 @@
 <script>
 export default {
   name: "listUsers",
-  props: ["placeholder", "name"],
+  props: ["name"],
   data() {
     return {
-      input: "",
+      isEditing: false,
       carentName: "",
       index: {
         type: Number,
@@ -45,6 +59,15 @@ export default {
   methods: {
     removeUser(index) {
       this.$emit("remove-user", index);
+    },
+
+    editName() {
+      this.isEditing = true;
+    },
+
+    saveName() {
+      this.isEditing = false;
+      this.carentName = this.item.name;
     },
   },
 
