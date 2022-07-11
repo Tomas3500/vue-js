@@ -49,7 +49,7 @@ export default {
   methods: {
     addUser(event) {
       this.users.unshift({
-        id: this.id,
+        id: this.id++,
         name: event.item,
       });
     },
