@@ -67,7 +67,6 @@ export default {
 
     saveName() {
       this.isEditing = false;
-      this.carentName = this.item.name;
     },
   },
 
